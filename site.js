@@ -13,50 +13,40 @@ deleteForm.addEventListener( "submit", e => {
 });
 
 const newUser = form => {
-  const userXHR = new XMLHttpRequest();
-  const interactionXHR = new XMLHttpRequest();
+  const XHR = new XMLHttpRequest();
 
   // Bind the FormData object and the form element
   const FD = new URLSearchParams(new FormData(form));
 
   // Define what happens on successful data submission
-  userXHR.addEventListener( "load", e => console.log(e.target.responseText));
-  interactionXHR.addEventListener( "load", e => console.log(e.target.responseText));
+  XHR.addEventListener( "load", e => console.log(e.target.responseText));
 
   // Define what happens in case of error
-  userXHR.addEventListener("error", e => console.log("Something went wrong."));
-  interactionXHR.addEventListener("error", e => console.log("Something went wrong."));
+  XHR.addEventListener("error", e => console.log("Something went wrong."));
 
   // Set up our request
-  userXHR.open("POST", "http://localhost:5000/app/newuser");
-  interactionXHR.open("POST", "http://localhost:5000/app/newinteractions");
+  XHR.open("POST", "http://localhost:5000/app/new");
 
   // The data sent is what the user provided in the form
-  userXHR.send(FD);
-  interactionXHR.send(FD);
+  XHR.send(FD);
 }
 
 const deleteUser = form => {
-  const userXHR = new XMLHttpRequest();
-  const interactionXHR = new XMLHttpRequest();
+  const XHR = new XMLHttpRequest();
 
   // Bind the FormData object and the form element
   const FD = new URLSearchParams(new FormData(form));
 
   // Define what happens on successful data submission
-  userXHR.addEventListener( "load", e => console.log(e.target.responseText));
-  interactionXHR.addEventListener( "load", e => console.log(e.target.responseText));
+  XHR.addEventListener( "load", e => console.log(e.target.responseText));
 
   // Define what happens in case of error
-  userXHR.addEventListener("error", e => console.log("Something went wrong."));
-  interactionXHR.addEventListener("error", e => console.log("Something went wrong."));
+  XHR.addEventListener("error", e => console.log("Something went wrong."));
 
   // Set up our request
-  userXHR.open("DELETE", "http://localhost:5000/app/delete/user/"+FD.get("user"));
-  interactionXHR.open("DELETE", "http://localhost:5000/app/delete/interactions/"+FD.get("user"));
+  XHR.open("DELETE", "http://localhost:5000/app/delete/user/"+FD.get("user"));
 
   // The data sent is what the user provided in the form
-  userXHR.send();
-  interactionXHR.send();
+  XHR.send();
 }
 
