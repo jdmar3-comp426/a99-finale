@@ -32,10 +32,20 @@ app.get("/app/", (req, res, next) => {
 });
 
 // Define other CRUD API endpoints using express.js and better-sqlite3
-// CREATE a new user (HTTP method POST) at endpoint /app/new/
-app.post("/app/new", (req, res) => {	
-	const stmt = db.prepare('INSERT INTO userinfo (user, email, pass) VALUES (?, ?, ?); INSERT INTO interactions (user, lastLogin, score VALUES (?, ?, ?)');
-	const info = stmt.run(req.body.user, req.body.email, md5(req.body.pass), req.body.user, new Date().toLocaleDateString(), 0);
+// CREATE a new user (HTTP method POST) at endpoint /app/newuser/
+app.post("/app/newuser", (req, res) => {	
+	const stmt = db.prepare('INSERT INTO userinfo (user, email, pass) VALUES (?, ?, ?)');
+	const info = stmt.run(req.body.user, req.body.email, md5(req.body.pass));
+
+	// Update response json to include most recent ID and status 201
+	res.json({"message": "1 record created: ID " + info.lastInsertRowid + " (201)"})
+	res.status(201);
+});
+
+// CREATE a new user (HTTP method POST) at endpoint /app/newinteractions/
+app.post("/app/newinteractions", (req, res) => {	
+	const stmt = db.prepare('INSERT INTO interactions (user, lastLogin, score) VALUES (?, ?, ?)');
+	const info = stmt.run(req.body.user, new Date().toLocaleDateString(), 0);
 
 	// Update response json to include most recent ID and status 201
 	res.json({"message": "1 record created: ID " + info.lastInsertRowid + " (201)"})
@@ -66,7 +76,7 @@ app.get("/app/interactions/:user", (req, res) => {
 	res.status(200).json(stmt);
 });
 
-// UPDATE a single user (HTTP method PATCH) at endpoint /app/update/user/:id
+// UPDATE a single user (HTTP method PATCH) at endpoint /app/update/user/:user
 app.patch("/app/update/user/:user", (req, res) => {	
 	const stmt = db.prepare('UPDATE userinfo SET user = COALESCE(?,user), email = COALESCE(?,email), pass = COALESCE(?,pass) WHERE user = ?');
 	const info = stmt.run(req.body.user, req.body.email, md5(req.body.pass), req.params.user);
@@ -76,18 +86,28 @@ app.patch("/app/update/user/:user", (req, res) => {
 	res.status(200);
 });
 
-// DELETE a single user (HTTP method DELETE) at endpoint /app/delete/user/:id
+// DELETE a single user (HTTP method DELETE) at endpoint /app/delete/user/:user
 app.delete("/app/delete/user/:user", (req, res) => {	
-	const stmt = db.prepare('DELETE FROM userinfo WHERE user = ?; DELETE FROM interactions WHERE user = ?');
-	const info = stmt.run(req.params.user, req.params.user);
+	const stmt = db.prepare('DELETE FROM userinfo WHERE user = ?');
+	const info = stmt.run(req.params.user);
 	
 	// Update response json to include deleted ID and status 200
-	res.json({"message":"1 record deleted: ID " + req.params.id + " (200)"});
-    res.status(200);
+	res.json({"message":"1 record deleted: USER " + req.params.user + " (200)"});
+  res.status(200);
+});
+
+// DELETE a single user (HTTP method DELETE) at endpoint /app/delete/interactions/:user
+app.delete("/app/delete/interactions/:user", (req, res) => {	
+	const stmt = db.prepare('DELETE FROM interactions WHERE user = ?');
+	const info = stmt.run(req.params.user);
+	
+	// Update response json to include deleted ID and status 200
+	res.json({"message":"1 record deleted: USER " + req.params.user + " (200)"});
+  res.status(200);
 });
 
 // Default response for any other request
 app.use(function(req, res){
-	res.json({"message":"Your API is working!"});
-    res.status(404);
+	res.json({"message":"Invalid request"});
+  res.status(404);
 });
