@@ -43,10 +43,13 @@ const deleteUser = form => {
   // Define what happens in case of error
   XHR.addEventListener("error", e => console.log("Something went wrong."));
 
-  // Set up our request
-  XHR.open("DELETE", "http://localhost:5000/app/delete/user/"+FD.get("user"));
+  // Confirm user wishes to delete account with that username
+  if (confirm("Press ok to delete the account with username " + FD.get("user"))) {
+    // Set up our request
+    XHR.open("DELETE", "http://localhost:5000/app/delete/user/" + FD.get("user"));
 
-  // The data sent is what the user provided in the form
-  XHR.send();
+    // The data sent is what the user provided in the form
+    XHR.send();
+  }
 }
 

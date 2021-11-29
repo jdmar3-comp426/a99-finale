@@ -70,7 +70,7 @@ app.delete("/app/delete/user/:user", (req, res) => {
 	const info = stmt.run(req.params.user);
 	
 	// Update response json to include deleted ID and status 200
-	res.json({"message":"1 record deleted: USER " + req.params.user + " (200)"});
+	res.json({"message":info.changes + " record deleted: USER " + req.params.user + " (200)"});
   res.status(200);
 });
 
