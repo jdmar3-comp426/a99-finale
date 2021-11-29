@@ -48,7 +48,7 @@ app.get("/app/users", (req, res) => {
 	res.status(200).json(stmt);
 });
 
-// READ a single user (HTTP method GET) at endpoint /app/user/:id
+// READ a single user (HTTP method GET) at endpoint /app/user/:user
 app.get("/app/user/:user", (req, res) => {	
 	const stmt = db.prepare("SELECT * FROM userinfo WHERE user = ?").get(req.params.user);
 	res.status(200).json(stmt);
