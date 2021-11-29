@@ -29,6 +29,8 @@ const newUser = form => {
 
   // The data sent is what the user provided in the form
   XHR.send(FD);
+
+  form.reset();
 }
 
 const deleteUser = form => {
@@ -51,5 +53,7 @@ const deleteUser = form => {
     // The data sent is what the user provided in the form
     XHR.send();
   }
+
+  form.reset();
 }
 
