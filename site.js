@@ -5,7 +5,7 @@ const deleteForm = document.querySelector("#deleteUser");
 
 loginForm.addEventListener( "submit", e => {
     e.preventDefault();
-    getUser(loginForm);
+    loginUser(loginForm);
 });
 
 createForm.addEventListener( "submit", e => {
@@ -18,7 +18,7 @@ deleteForm.addEventListener( "submit", e => {
     deleteUser(deleteForm);
 });
 
-const getUser = form => {
+const loginUser = form => {
   const XHR = new XMLHttpRequest();
 
   // Bind the FormData object and the form element
@@ -26,10 +26,7 @@ const getUser = form => {
 
   // Define what happens on successful data submission
   XHR.addEventListener("load", e => {
-    // This is not working because we cannot access md5 on
-    // client side... need to come up with a fix
-    // if (md5(FD.get("pass")) === JSON.parse(e.target.responseText).pass) {
-    if (FD.get("pass") === JSON.parse(e.target.responseText).pass) {
+    if (Object.keys(JSON.parse(e.target.responseText)).length > 1) {
       alert("LOGIN SUCCESSFUL FOR USER " + FD.get("user"))
     } else {
       alert("Login unsuccessful")
@@ -40,7 +37,8 @@ const getUser = form => {
   XHR.addEventListener("error", e => console.log("Something went wrong."));
 
   // Set up our request
-  XHR.open("GET", "http://localhost:5000/app/user/" + FD.get("user"));
+  XHR.open("GET", "http://localhost:5000/app/login/" + FD.get("user") + "/" + FD.get("pass"));
+  console.log("http://localhost:5000/app/login/" + FD.get("user") + "/" + FD.get("pass"))
 
   // The data sent is what the user provided in the form
   XHR.send();

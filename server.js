@@ -54,6 +54,17 @@ app.get("/app/user/:user", (req, res) => {
 	res.status(200).json(stmt);
 });
 
+// LOGIN for a single user at endpoint /app/login
+app.get("/app/login/:user/:pass", (req, res) => {	
+	const stmt = db.prepare("SELECT * FROM userinfo WHERE user = ? AND pass = ?");
+  const userInfo = stmt.get(req.params.user, md5(req.params.pass))
+  if (userInfo) {
+    res.status(200).json(userInfo);
+  } else {
+    res.status(404).json({"message": "User not found"})
+  }
+});
+
 // UPDATE a single user (HTTP method PATCH) at endpoint /app/update/user/:user
 app.patch("/app/update/user/:user", (req, res) => {	
 	const stmt = db.prepare('UPDATE userinfo SET user = COALESCE(?,user), email = COALESCE(?,email), pass = COALESCE(?,pass), lastLogin = COALESCE(?,lastLogin), score = COALESCE(?,score) WHERE user = ?');
