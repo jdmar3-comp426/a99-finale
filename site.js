@@ -1,6 +1,12 @@
 // Access the form elements
+const loginForm = document.querySelector("#login");
 const createForm = document.querySelector("#createUser");
 const deleteForm = document.querySelector("#deleteUser");
+
+loginForm.addEventListener( "submit", e => {
+    e.preventDefault();
+    loginUser(loginForm);
+});
 
 createForm.addEventListener( "submit", e => {
     e.preventDefault();
@@ -12,51 +18,95 @@ deleteForm.addEventListener( "submit", e => {
     deleteUser(deleteForm);
 });
 
-const newUser = form => {
-  const userXHR = new XMLHttpRequest();
-  const interactionXHR = new XMLHttpRequest();
+const loginUser = form => {
+  const XHR = new XMLHttpRequest();
 
   // Bind the FormData object and the form element
   const FD = new URLSearchParams(new FormData(form));
 
   // Define what happens on successful data submission
-  userXHR.addEventListener( "load", e => console.log(e.target.responseText));
-  interactionXHR.addEventListener( "load", e => console.log(e.target.responseText));
+  XHR.addEventListener("load", e => {
+    let response = JSON.parse(e.target.responseText)
+    if (Object.keys(response).length > 1) {
+      updateLastLogin(FD.get("user"))
+      alert("LOGIN SUCCESSFUL FOR USER " + FD.get("user"))
+    } else {
+      alert("Login unsuccessful")
+    }
+  });
 
   // Define what happens in case of error
-  userXHR.addEventListener("error", e => console.log("Something went wrong."));
-  interactionXHR.addEventListener("error", e => console.log("Something went wrong."));
+  XHR.addEventListener("error", e => console.log("Something went wrong."));
 
   // Set up our request
-  userXHR.open("POST", "http://localhost:5000/app/newuser");
-  interactionXHR.open("POST", "http://localhost:5000/app/newinteractions");
+  XHR.open("GET", "http://localhost:5000/app/login/" + FD.get("user") + "/" + FD.get("pass"));
 
   // The data sent is what the user provided in the form
-  userXHR.send(FD);
-  interactionXHR.send(FD);
+  XHR.send();
+
+  form.reset();
+}
+
+const newUser = form => {
+  const XHR = new XMLHttpRequest();
+
+  // Bind the FormData object and the form element
+  const FD = new URLSearchParams(new FormData(form));
+
+  // Define what happens on successful data submission
+  XHR.addEventListener("load", e => console.log(e.target.responseText));
+
+  // Define what happens in case of error
+  XHR.addEventListener("error", e => console.log("Something went wrong."));
+
+  // Set up our request
+  XHR.open("POST", "http://localhost:5000/app/new");
+
+  // The data sent is what the user provided in the form
+  XHR.send(FD);
+
+  form.reset();
 }
 
 const deleteUser = form => {
-  const userXHR = new XMLHttpRequest();
-  const interactionXHR = new XMLHttpRequest();
+  const XHR = new XMLHttpRequest();
 
   // Bind the FormData object and the form element
   const FD = new URLSearchParams(new FormData(form));
 
   // Define what happens on successful data submission
-  userXHR.addEventListener( "load", e => console.log(e.target.responseText));
-  interactionXHR.addEventListener( "load", e => console.log(e.target.responseText));
+  XHR.addEventListener("load", e => console.log(e.target.responseText));
 
   // Define what happens in case of error
-  userXHR.addEventListener("error", e => console.log("Something went wrong."));
-  interactionXHR.addEventListener("error", e => console.log("Something went wrong."));
+  XHR.addEventListener("error", e => console.log("Something went wrong."));
 
-  // Set up our request
-  userXHR.open("DELETE", "http://localhost:5000/app/delete/user/"+FD.get("user"));
-  interactionXHR.open("DELETE", "http://localhost:5000/app/delete/interactions/"+FD.get("user"));
+  // Confirm user wishes to delete account with that username
+  if (confirm("Press ok to delete the account with username " + FD.get("user"))) {
+    // Set up our request
+    XHR.open("DELETE", "http://localhost:5000/app/delete/user/" + FD.get("user"));
 
-  // The data sent is what the user provided in the form
-  userXHR.send();
-  interactionXHR.send();
+    // The data sent is what the user provided in the form
+    XHR.send();
+  }
+
+  form.reset();
 }
 
+const updateLastLogin = user => {
+  const XHR = new XMLHttpRequest();
+
+  // Bind the FormData object and the form element
+  const FD = new URLSearchParams({"lastLogin": new Date().toLocaleDateString()});
+
+  // Define what happens on successful data submission
+  XHR.addEventListener("load", e => console.log(e.target.responseText));
+
+  // Define what happens in case of error
+  XHR.addEventListener("error", e => console.log("Something went wrong."));
+
+  // Set up our request
+  XHR.open("PATCH", "http://localhost:5000/app/update/user/" + user);
+
+  // Send the request
+  XHR.send(FD);
+}
