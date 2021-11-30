@@ -2,30 +2,35 @@
 <html>
   <head>
     <title>User Management</title>
+    <link rel="stylesheet" href="main.css">
   </head>
   <body>
-    <div>
-      <p>Login to an existing account</p>
+    <div id=loginPanel>
+      <div>
+        <p>Login to an existing account</p>
+      </div>
+      <form id="login">
+        <label for="user">Username: </label>
+        <input name="user">
+        <label for="pass">Password: </label>
+        <input name="pass" type="password" value="">
+        <input type="submit" value="Login">
+      </form>
     </div>
-    <form id="login">
-      <label for="user">Username: </label>
-      <input name="user">
-      <label for="pass">Password: </label>
-      <input name="pass" type="password" value="">
-      <input type="submit" value="Login">
-    </form>
-    <div>
-      <p>Create a new account</p>
+    <div id=createPanel>
+      <div>
+        <p>Create a new account</p>
+      </div>
+      <form id="createUser">
+        <label for="user">Username: </label>
+        <input name="user" value="">
+        <label for="email">Email: </label>
+        <input name="email" value="">
+        <label for="pass">Password: </label>
+        <input name="pass" type="password" value="">
+        <input type="submit" value="Add User">
+      </form>
     </div>
-    <form id="createUser">
-      <label for="user">Username: </label>
-      <input name="user" value="">
-      <label for="email">Email: </label>
-      <input name="email" value="">
-      <label for="pass">Password: </label>
-      <input name="pass" type="password" value="">
-      <input type="submit" value="Add User">
-    </form>
     <div>
       <p>Delete an account</p>
     </div>
