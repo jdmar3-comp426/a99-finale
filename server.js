@@ -68,10 +68,10 @@ app.get("/app/login/:user/:pass", (req, res) => {
 // UPDATE a single user (HTTP method PATCH) at endpoint /app/update/user/:user
 app.patch("/app/update/user/:user", (req, res) => {	
 	const stmt = db.prepare('UPDATE userinfo SET user = COALESCE(?,user), email = COALESCE(?,email), pass = COALESCE(?,pass), lastLogin = COALESCE(?,lastLogin), score = COALESCE(?,score) WHERE user = ?');
-	const info = stmt.run(req.body.user, req.body.email, md5(req.body.pass), req.body.lastLogin, req.body.score, req.params.user);
+	const info = stmt.run(req.params.user, req.body.email, req.body.pass != null ? md5(req.body.pass) : null, req.body.lastLogin, req.body.score, req.params.user);
 
 	// Update response json to include most recent ID and status 201
-	res.json({"message":"1 record updated: ID " + req.params.id + " (200)"});
+	res.json({"message":"1 record updated: USER " + req.params.user + " (200)"});
 	res.status(200);
 });
 

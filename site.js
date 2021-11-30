@@ -26,7 +26,9 @@ const loginUser = form => {
 
   // Define what happens on successful data submission
   XHR.addEventListener("load", e => {
-    if (Object.keys(JSON.parse(e.target.responseText)).length > 1) {
+    let response = JSON.parse(e.target.responseText)
+    if (Object.keys(response).length > 1) {
+      updateLastLogin(FD.get("user"))
       alert("LOGIN SUCCESSFUL FOR USER " + FD.get("user"))
     } else {
       alert("Login unsuccessful")
@@ -38,7 +40,6 @@ const loginUser = form => {
 
   // Set up our request
   XHR.open("GET", "http://localhost:5000/app/login/" + FD.get("user") + "/" + FD.get("pass"));
-  console.log("http://localhost:5000/app/login/" + FD.get("user") + "/" + FD.get("pass"))
 
   // The data sent is what the user provided in the form
   XHR.send();
@@ -89,4 +90,23 @@ const deleteUser = form => {
   }
 
   form.reset();
+}
+
+const updateLastLogin = user => {
+  const XHR = new XMLHttpRequest();
+
+  // Bind the FormData object and the form element
+  const FD = new URLSearchParams({"lastLogin": new Date().toLocaleDateString()});
+
+  // Define what happens on successful data submission
+  XHR.addEventListener("load", e => console.log(e.target.responseText));
+
+  // Define what happens in case of error
+  XHR.addEventListener("error", e => console.log("Something went wrong."));
+
+  // Set up our request
+  XHR.open("PATCH", "http://localhost:5000/app/update/user/" + user);
+
+  // Send the request
+  XHR.send(FD);
 }
