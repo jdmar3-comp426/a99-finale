@@ -1,16 +1,23 @@
 body {
   height: 100%;
   display: flex;
-  align-items: center;
+  align-items: vertical center;
   text-align: center;
 }
 
-#loginPanel {
+button {
+  margin: 7px;
+}
+
+.panel {
   border-radius: 2px;
-  border: 2px solid grey;
+  border: 3px solid grey;
 }
 
 #createPanel {
-  border-radius: 2px;
-  border: 2px solid grey;
+  visibility: hidden;
+}
+
+#deletePanel {
+  visibility: hidden;
 }
