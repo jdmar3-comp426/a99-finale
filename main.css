@@ -1,0 +1,23 @@
+body {
+  height: 100%;
+  display: flex;
+  align-items: vertical center;
+  text-align: center;
+}
+
+button {
+  margin: 7px;
+}
+
+.panel {
+  border-radius: 2px;
+  border: 3px solid grey;
+}
+
+#createPanel {
+  visibility: hidden;
+}
+
+#deletePanel {
+  visibility: hidden;
+}

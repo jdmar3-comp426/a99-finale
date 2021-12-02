@@ -5,40 +5,44 @@
     <link rel="stylesheet" href="main.css">
   </head>
   <body>
-    <div id=loginPanel>
+    <div id=loginPanel class=panel>
       <div>
-        <p>Login to an existing account</p>
+        <h3>Login</h3>
       </div>
       <form id="login">
         <label for="user">Username: </label>
         <input name="user">
-        <label for="pass">Password: </label>
-        <input name="pass" type="password" value="">
+        <label for="pass"><br>Password: </label>
+        <input name="pass" type="password" value=""><br>
         <input type="submit" value="Login">
       </form>
+      <button onclick="showCreate()">Create new user</button>
+      <button onclick="showDelete()">Delete account</button>
     </div>
-    <div id=createPanel>
+    <div id=createPanel class=panel>
       <div>
-        <p>Create a new account</p>
+        <h3>Create a new account</h3>
       </div>
       <form id="createUser">
         <label for="user">Username: </label>
         <input name="user" value="">
-        <label for="email">Email: </label>
+        <label for="email"><br>Email: </label>
         <input name="email" value="">
-        <label for="pass">Password: </label>
-        <input name="pass" type="password" value="">
+        <label for="pass"><br>Password: </label>
+        <input name="pass" type="password" value=""><br>
         <input type="submit" value="Add User">
       </form>
     </div>
-    <div>
-      <p>Delete an account</p>
+    <div id=deletePanel class=panel>
+      <div>
+        <h3>Delete an account</h3>
+      </div>
+      <form id="deleteUser">
+        <label for="user">Username: </label>
+        <input name="user"><br>
+        <input type="submit" value="Delete User">
+      </form>
     </div>
-    <form id="deleteUser">
-      <label for="user">Username: </label>
-      <input name="user">
-      <input type="submit" value="Delete User">
-    </form>
     <script src="site.js"></script>
   </body>
 </html>
