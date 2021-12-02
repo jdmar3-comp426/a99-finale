@@ -48,17 +48,21 @@ autoClicker.onclick = function() {
         updateScore();
         clickerCost = clickerCost*5;
         updateClickerCost();
+        clearInterval(autoClickerLevel);
         autoClickerLevel++;
+        setInterval(function() {
+            score += deanDome ? 3 : 1;
+            updateScore();
+        }, Math.floor(500 / autoClickerLevel));
     }
 }
 
 
-// Increase score for auto clicker
-window.setInterval(function() {
+/*let iasdf = setInterval(function() {
     score += (autoClickerLevel**2)*1;
     if (deanDome) { score += 10; }
     updateScore();
-}, 500);
+}, 500);*/
 
 //Dean Dome Functions
 deanDomeDoc.onclick = function() {
