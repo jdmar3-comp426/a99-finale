@@ -5,8 +5,9 @@ An incremental game for collecting beans, through clicking on the one bean in th
 ## [Documentation](https://github.com/jdmar3-comp426/a99-finale/tree/main/docs)
 
  - Team Roles
-    -Cole: Login page and front-end CSS
-    -Cooper & Shiva: Game functionality in JS
+    - Cole: Review manager, plan manager, Backend, Database, Login page functionality
+    - Cooper & Shiva: Front end game functionality
+    - Helen & Grant: Front end design, documentation managers
  - Gameplay
     - Game loads into login page which provides user the option to login to their account or start a new game.
     Startup page loads user's high score and profile information at the bottom of the screen along with the option to delete their account.
