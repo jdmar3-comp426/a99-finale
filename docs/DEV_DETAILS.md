@@ -1,10 +1,13 @@
-# Team Roles
+
+# Development Details
+
+## Team Roles
 
 - Cole: Review manager, plan manager, backend, database, login page functionality
 - Cooper & Shiva: Front end game functionality
 - Helen & Grant: Front end design, documentation managers
 
-# Planning Documentation Archive
+## Planning Documentation Archive
 
 1. **DONE** Choose and update the LICENSE file accordingly.
 2. **TODO** Edit this README.md file and use it as the main location of your technical documentation with links out to information contained under `/docs/`.
