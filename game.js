@@ -12,7 +12,7 @@ const deanDomeCostDoc = document.querySelector("#deanDomeCost");
 var user = localStorage.getItem("user");
 
 // Initialize the game variables 
-var score, level, upgradeCost, clickerCost, autoClickerLevel, deanDome, deanDomeCost;
+var score, level, upgradeCost, clickerCost, autoClickerLevel, deanDome, deanDomeCost, intervalId;
 
 const initialXHR = new XMLHttpRequest();
 initialXHR.addEventListener("load", e => {
@@ -25,6 +25,16 @@ initialXHR.addEventListener("load", e => {
   deanDome = response.deanDome;
   deanDomeCost = response.deanDomeCost;
   setInitialDisplays();
+
+  intervalId = 0;
+  if (autoClickerLevel > 0) {
+      setInterval(function() {
+          score += deanDome ? 3 : 1;
+          updateScore();
+      }, Math.floor(500 / autoClickerLevel));
+      intervalId++
+  }
+
 })
 initialXHR.addEventListener("error", e => console.log(e))
 initialXHR.open("GET", "http://localhost:5000/app/user/" + user);
@@ -36,7 +46,10 @@ function setInitialDisplays() {
   scoreDoc.innerHTML = "Fever Points: " + score;
   upgradeCostDoc.innerHTML = "Upgrade Cost: " + upgradeCost;
   clickerCostDoc.innerHTML = "Auto Clicker Cost: " + clickerCost;
-  // NEED TO SHOW DEAN DOME AS WELL IF THEY ALREADY HAVE IT
+  if (deanDome) {
+      deanDomeCostDoc.remove();
+      deanDomeDoc.src = "./DeanDome.jpg";
+  }
 }
 
 // Upgrade cursor click function
@@ -52,6 +65,8 @@ upgrade.onclick = function(){
 
 // Manual Rameses click function
 rameses.onclick = function() {
+    rameses.src = "./DeanDome.jpg";
+    setTimeout(_ => rameses.src = "./rameses.gif", 100);
     score+= (level**2)*1;
     updateScore();
 }
@@ -63,7 +78,8 @@ autoClicker.onclick = function() {
         updateScore();
         clickerCost = clickerCost*5;
         updateClickerCost();
-        clearInterval(autoClickerLevel);
+        clearInterval(intervalId);
+        intervalId++;
         autoClickerLevel++;
         setInterval(function() {
             score += deanDome ? 3 : 1;
@@ -74,7 +90,7 @@ autoClicker.onclick = function() {
 
 //Dean Dome Functions
 deanDomeDoc.onclick = function() {
-    if (score >= deanDomeCost) {
+    if (score >= deanDomeCost && !deanDome) {
         score -= deanDomeCost;
         updateScore();
         deanDome = true;
@@ -82,7 +98,6 @@ deanDomeDoc.onclick = function() {
         deanDomeDoc.src = "./DeanDome.jpg";
     } 
 }
-deanDomeDoc.onmouseover = function() { };
 
 // Update Score and Upgrade Cost Display
 function updateScore() { scoreDoc.innerHTML = "Fever Points: " + score;}
