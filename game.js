@@ -8,8 +8,9 @@ const clickerCostDoc = document.querySelector("#clickerCost");
 const deanDomeDoc = document.querySelector("#deanDome");
 const deanDomeCostDoc = document.querySelector("#deanDomeCost");
 
+// Grab the user from local storage
+var user = localStorage.getItem("user");
 
-// Initialize the game variables 
 var level = 1;
 var score = 0;
 var upgradeCost = 25;
@@ -18,6 +19,21 @@ var autoClickerLevel = 0;
 var deanDome = false;
 var deanDomeCost = 1000;
 
+// Initialize the game variables 
+const initialXHR = new XMLHttpRequest();
+initialXHR.addEventListener("load", e => {
+  let response = JSON.parse(e.target.responseText);
+  score = response.score;
+  /*var level = response.level;
+  var upgradeCost = response.upgradeCost;
+  var clickerCost = response.clickerCost;
+  var autoClickerLevel = response.autoClickerLevel;
+  var deanDome = response.deanDome;
+  var deanDomeCost = response.deanDomeCost;*/
+})
+initialXHR.addEventListener("error", e => console.log(e))
+initialXHR.open("GET", "http://localhost:5000/app/user/" + user);
+initialXHR.send()
 
 // Initial display values
 scoreDoc.innerHTML = "Fever Points: " + score;

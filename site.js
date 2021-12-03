@@ -36,12 +36,14 @@ const loginUser = form => {
 
   // Define what happens on successful data submission
   XHR.addEventListener("load", e => {
-    let response = JSON.parse(e.target.responseText)
+    let response = JSON.parse(e.target.responseText);
     if (Object.keys(response).length > 1) {
-      updateLastLogin(FD.get("user"))
-      alert("LOGIN SUCCESSFUL FOR USER " + FD.get("user"))
+      updateLastLogin(FD.get("user"));
+      alert("LOGIN SUCCESSFUL FOR USER " + FD.get("user"));
+      localStorage.setItem("user", FD.get("user"));
+      window.location.href = "/game.html";
     } else {
-      alert("Login unsuccessful")
+      alert("Login unsuccessful");
     }
   });
 
