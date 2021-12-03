@@ -65,7 +65,7 @@ upgrade.onclick = function(){
 
 // Manual Rameses click function
 rameses.onclick = function() {
-    rameses.src = "./rameses_inverted.jpg";
+    rameses.src = "./rameses_inverted.gif";
     setTimeout(_ => rameses.src = "./rameses.gif", 100);
     score+= (level**2)*1;
     updateScore();
