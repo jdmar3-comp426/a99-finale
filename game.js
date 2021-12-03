@@ -73,13 +73,6 @@ autoClicker.onclick = function() {
     }
 }
 
-
-/*let iasdf = setInterval(function() {
-    score += (autoClickerLevel**2)*1;
-    if (deanDome) { score += 10; }
-    updateScore();
-}, 500);*/
-
 //Dean Dome Functions
 deanDomeDoc.onclick = function() {
     if (score>= deanDomeCost) {
@@ -97,3 +90,26 @@ function updateScore() { scoreDoc.innerHTML = "Fever Points: " + score;}
 function updateCost() { upgradeCostDoc.innerHTML = "Upgrade Cost: " + upgradeCost;}
 function updateClickerCost() {clickerCostDoc.innerHTML = "Auto Clicker Cost: " + clickerCost}
 
+window.setInterval(function() {
+  const XHR = new XMLHttpRequest();
+
+  // Bind the FormData object and the form element
+  const FD = new URLSearchParams({
+    "score": score,
+    "level": level
+    // ...
+    // ...
+  });
+
+  // Define what happens on successful data submission
+  XHR.addEventListener("load", e => console.log(e.target.responseText));
+
+  // Define what happens in case of error
+  XHR.addEventListener("error", e => console.log("Something went wrong."));
+
+  // Set up our request
+  XHR.open("PATCH", "http://localhost:5000/app/update/user/" + user);
+
+  // Send the request
+  XHR.send(FD);
+}, 3000);
