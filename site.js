@@ -36,12 +36,14 @@ const loginUser = form => {
 
   // Define what happens on successful data submission
   XHR.addEventListener("load", e => {
-    let response = JSON.parse(e.target.responseText)
+    let response = JSON.parse(e.target.responseText);
     if (Object.keys(response).length > 1) {
-      updateLastLogin(FD.get("user"))
-      alert("LOGIN SUCCESSFUL FOR USER " + FD.get("user"))
+      updateLastLogin(FD.get("user"));
+      alert("LOGIN SUCCESSFUL FOR USER " + FD.get("user"));
+      localStorage.setItem("user", FD.get("user"));
+      window.location.href = "/game.html";
     } else {
-      alert("Login unsuccessful")
+      alert("Login unsuccessful");
     }
   });
 
@@ -68,14 +70,6 @@ const newUser = form => {
 
   // Define what happens in case of error
   XHR.addEventListener("error", e => console.log("Something went wrong."));
-
-  // Make sure all inputs are valid for a new user
-  FD.forEach((v, k) => {
-    if (k.length <= 5) {
-      alert("At least one input field is invalid")
-      return;
-    }
-  })
 
   // Set up our request
   XHR.open("POST", "http://localhost:5000/app/new");
