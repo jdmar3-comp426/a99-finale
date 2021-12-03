@@ -23,7 +23,7 @@ body{
 }
 
 button{
-    background-color:lightblue;
+    background-color:#7BAFD4;
     border: none;
   color: white;
   padding: 10px 24px;
@@ -34,7 +34,7 @@ button{
   font-size: 12px;
 }
 
-div{
+.text-right{
     position: relative;
     float: right;
     margin-left: 20%;
