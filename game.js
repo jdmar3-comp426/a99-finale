@@ -52,8 +52,10 @@ upgrade.onclick = function(){
 
 // Manual Rameses click function
 rameses.onclick = function() {
+    rameses.style.backgroundColor = "black";
     score+= (level**2)*1;
     updateScore();
+    rameses.style.backgroundColor = "";
 }
 
 // Buy auto clicker function
