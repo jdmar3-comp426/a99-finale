@@ -11,34 +11,33 @@ const deanDomeCostDoc = document.querySelector("#deanDomeCost");
 // Grab the user from local storage
 var user = localStorage.getItem("user");
 
-var level = 1;
-var score = 0;
-var upgradeCost = 25;
-var clickerCost = 500;
-var autoClickerLevel = 0; 
-var deanDome = false;
-var deanDomeCost = 1000;
-
 // Initialize the game variables 
+var score, level, upgradeCost, clickerCost, autoClickerLevel, deanDome, deanDomeCost;
+
+
 const initialXHR = new XMLHttpRequest();
 initialXHR.addEventListener("load", e => {
   let response = JSON.parse(e.target.responseText);
   score = response.score;
-  /*var level = response.level;
-  var upgradeCost = response.upgradeCost;
-  var clickerCost = response.clickerCost;
-  var autoClickerLevel = response.autoClickerLevel;
-  var deanDome = response.deanDome;
-  var deanDomeCost = response.deanDomeCost;*/
+  level = response.level;
+  upgradeCost = response.upgradeCost;
+  clickerCost = response.clickerCost;
+  autoClickerLevel = response.autoClickerLevel;
+  deanDome = response.deanDome;
+  deanDomeCost = response.deanDomeCost;
 })
 initialXHR.addEventListener("error", e => console.log(e))
 initialXHR.open("GET", "http://localhost:5000/app/user/" + user);
 initialXHR.send()
 
-// Initial display values
+
+// Initial display values - these are being set to undefined
+// because they are loading before the XHR returns... Could
+// use async/await? Not sure
 scoreDoc.innerHTML = "Fever Points: " + score;
 upgradeCostDoc.innerHTML = "Upgrade Cost: " + upgradeCost;
 clickerCostDoc.innerHTML = "Auto Clicker Cost: " + clickerCost;
+
 
 // Upgrade cursor click function
 upgrade.onclick = function(){
@@ -75,7 +74,7 @@ autoClicker.onclick = function() {
 
 //Dean Dome Functions
 deanDomeDoc.onclick = function() {
-    if (score>= deanDomeCost) {
+    if (score >= deanDomeCost) {
         score -= deanDomeCost;
         updateScore();
         deanDome = true;
@@ -96,9 +95,12 @@ window.setInterval(function() {
   // Bind the FormData object and the form element
   const FD = new URLSearchParams({
     "score": score,
-    "level": level
-    // ...
-    // ...
+    "level": level,
+    "upgradeCost": upgradeCost,
+    "clickerCost": clickerCost,
+    "autoClickerLevel": autoClickerLevel,
+    "deanDome": deanDome,
+    "deanDomeCost": deanDomeCost
   });
 
   // Define what happens on successful data submission
