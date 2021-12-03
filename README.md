@@ -23,7 +23,7 @@ The Chrome web browser and Node.js Javascript Runtime must be installed to run o
 
 ## Run Instructions
 
-Open the project directory in a terminal and use the command "npm run start."
+Open the project directory in a terminal and use the command "npm run start".
 
 ## Detailed [Documentation](https://github.com/jdmar3-comp426/a99-finale/tree/main/docs) sections
 
