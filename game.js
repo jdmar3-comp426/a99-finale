@@ -25,10 +25,10 @@ initialXHR.addEventListener("load", e => {
   deanDome = response.deanDome;
   deanDomeCost = response.deanDomeCost;
   setInitialDisplays();
-})
-initialXHR.addEventListener("error", e => console.log(e))
+});
+initialXHR.addEventListener("error", e => console.log(e));
 initialXHR.open("GET", "http://localhost:5000/app/user/" + user);
-initialXHR.send()
+initialXHR.send();
 
 
 // Set initial display values
