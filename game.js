@@ -65,8 +65,8 @@ upgrade.onclick = function(){
 
 // Manual Rameses click function
 rameses.onclick = function() {
-    rameses.style.backgroundColor = "#969696";
-    setTimeout(_ => rameses.style.backgroundColor = "", 100);
+    rameses.src = "./DeanDome.jpg";
+    setTimeout(_ => rameses.src = "./rameses.gif", 100);
     score+= (level**2)*1;
     updateScore();
 }
