@@ -3,10 +3,20 @@ body {
   display: flex;
   align-items: vertical center;
   text-align: center;
+  background-color: lightgrey;
+  font-family: 'Oswald', sans-serif;
 }
 
 button {
-  margin: 7px;
+background-color:#7BAFD4;
+border: none;
+color: white;
+padding: 10px 24px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-family: 'Oswald', sans-serif;
+font-size: 12px;
 }
 
 .panel {
