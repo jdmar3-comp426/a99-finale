@@ -14,7 +14,6 @@ var user = localStorage.getItem("user");
 // Initialize the game variables 
 var score, level, upgradeCost, clickerCost, autoClickerLevel, deanDome, deanDomeCost;
 
-
 const initialXHR = new XMLHttpRequest();
 initialXHR.addEventListener("load", e => {
   let response = JSON.parse(e.target.responseText);
@@ -25,19 +24,20 @@ initialXHR.addEventListener("load", e => {
   autoClickerLevel = response.autoClickerLevel;
   deanDome = response.deanDome;
   deanDomeCost = response.deanDomeCost;
+  setInitialDisplays();
 })
 initialXHR.addEventListener("error", e => console.log(e))
 initialXHR.open("GET", "http://localhost:5000/app/user/" + user);
 initialXHR.send()
 
 
-// Initial display values - these are being set to undefined
-// because they are loading before the XHR returns... Could
-// use async/await? Not sure
-scoreDoc.innerHTML = "Fever Points: " + score;
-upgradeCostDoc.innerHTML = "Upgrade Cost: " + upgradeCost;
-clickerCostDoc.innerHTML = "Auto Clicker Cost: " + clickerCost;
-
+// Set initial display values
+function setInitialDisplays() {
+  scoreDoc.innerHTML = "Fever Points: " + score;
+  upgradeCostDoc.innerHTML = "Upgrade Cost: " + upgradeCost;
+  clickerCostDoc.innerHTML = "Auto Clicker Cost: " + clickerCost;
+  // NEED TO SHOW DEAN DOME AS WELL IF THEY ALREADY HAVE IT
+}
 
 // Upgrade cursor click function
 upgrade.onclick = function(){
