@@ -7,7 +7,7 @@ Carolina Clicker is an "incremental" game where you collect fever points by clic
 
 ## Demo Video
 
-Check out our demo video for an introduction to the app [here](https://youtu.be/bXRnZXAXwzc).
+Check out our [demo video](https://youtu.be/bXRnZXAXwzc) for an introduction to the app!
 
 ## Installation Requirements/Instructions
 
