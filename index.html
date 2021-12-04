@@ -14,9 +14,9 @@
       </div>
       <form id="login">
         <label for="user">Username: </label>
-        <input name="user">
+        <input name="user" required>
         <label for="pass"><br>Password: </label>
-        <input name="pass" type="password" value=""><br>
+        <input name="pass" type="password" required><br>
         <input type="submit" value="Login">
       </form>
       <button onclick="showCreate()">Create new user</button>
@@ -28,11 +28,11 @@
       </div>
       <form id="createUser">
         <label for="user">Username: </label>
-        <input name="user" value="">
+        <input name="user" required>
         <label for="email"><br>Email: </label>
-        <input name="email" value="">
+        <input name="email" required>
         <label for="pass"><br>Password: </label>
-        <input name="pass" type="password" value=""><br>
+        <input name="pass" type="password" required><br>
         <input type="submit" value="Add User">
       </form>
     </div>
@@ -42,7 +42,7 @@
       </div>
       <form id="deleteUser">
         <label for="user">Username: </label>
-        <input name="user"><br>
+        <input name="user" required><br>
         <input type="submit" value="Delete User">
       </form>
     </div>
