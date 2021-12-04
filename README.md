@@ -5,6 +5,8 @@
 
 Carolina Clicker is an "incremental" game where you collect fever points by clicking a picture of Rameses. Our inspiration for our game was the popular cookie clicker game. As you progress through the game, you can buy upgrades that increase your clicking ability. High scores are saved for every player.
 
+## Demo Video
+
 Check out our demo video for an introduction to the app [here](https://youtu.be/bXRnZXAXwzc).
 
 ## Installation Requirements/Instructions
