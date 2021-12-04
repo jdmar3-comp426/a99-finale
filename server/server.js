@@ -54,11 +54,12 @@ app.get("/app/user/:user", (req, res) => {
 	res.status(200).json(stmt);
 });
 
-// LOGIN for a single user at endpoint /app/login
+// LOGIN for a single user at endpoint /app/login/:user/:pass
 app.get("/app/login/:user/:pass", (req, res) => {	
 	const stmt = db.prepare("SELECT * FROM userinfo WHERE user = ? AND pass = ?");
   const userInfo = stmt.get(req.params.user, md5(req.params.pass))
   if (userInfo) {
+    // If the corresponding user is found
     res.status(200).json(userInfo);
   } else {
     res.status(404).json({"message": "User not found"})

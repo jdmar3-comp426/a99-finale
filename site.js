@@ -3,6 +3,8 @@ const loginForm = document.querySelector("#login");
 const createForm = document.querySelector("#createUser");
 const deleteForm = document.querySelector("#deleteUser");
 
+// Add submit event listeners for each of the forms that go
+// to their respective functions
 loginForm.addEventListener( "submit", e => {
     e.preventDefault();
     loginUser(loginForm);
@@ -18,6 +20,8 @@ deleteForm.addEventListener( "submit", e => {
     deleteUser(deleteForm);
 });
 
+// Show functions for the create and delete user forms, so
+// that they can be shown when requested
 const showCreate = _ => {
   document.querySelector("#createPanel").style.visibility = "visible"
   document.querySelector("#deletePanel").style.visibility = "hidden"
@@ -28,6 +32,7 @@ const showDelete = _ => {
   document.querySelector("#createPanel").style.visibility = "hidden"
 }
 
+// Function to log in the user on submission of the form
 const loginUser = form => {
   const XHR = new XMLHttpRequest();
 
@@ -37,10 +42,14 @@ const loginUser = form => {
   // Define what happens on successful data submission
   XHR.addEventListener("load", e => {
     let response = JSON.parse(e.target.responseText);
-    if (Object.keys(response).length > 1) {
+    // If the response included the user's information
+    if (XHR.status === 200) {
+      // Update user's last login information
       updateLastLogin(FD.get("user"));
       alert("Login successful for user: " + FD.get("user"));
+      // Store username in local storage to be used by the game
       localStorage.setItem("user", FD.get("user"));
+      // Navigate to the game
       window.location.href = "/game";
     } else {
       alert("Login unsuccessful");
@@ -56,9 +65,11 @@ const loginUser = form => {
   // The data sent is what the user provided in the form
   XHR.send();
 
+  // Clear the form
   form.reset();
 }
 
+// Function for creating a new user
 const newUser = form => {
   const XHR = new XMLHttpRequest();
 
@@ -68,7 +79,9 @@ const newUser = form => {
   // Define what happens on successful data submission
   XHR.addEventListener("load", e => {
     alert("New user created with username: " + FD.get("user"));
+    // Store username in local storage to be used by the game
     localStorage.setItem("user", FD.get("user"));
+    // Navigate to the game
     window.location.href = "/game";
   })
 
@@ -81,9 +94,11 @@ const newUser = form => {
   // The data sent is what the user provided in the form
   XHR.send(FD);
 
+  // Clear the form
   form.reset();
 }
 
+// Function to delete user on form submission
 const deleteUser = form => {
   const XHR = new XMLHttpRequest();
 
@@ -105,13 +120,16 @@ const deleteUser = form => {
     XHR.send();
   }
 
+  // Clear the form
   form.reset();
 }
 
+// Function to specifically update last user login
 const updateLastLogin = user => {
   const XHR = new XMLHttpRequest();
 
-  // Bind the FormData object and the form element
+  // Bind the FormData object and the form element (holding
+  // today's date)
   const FD = new URLSearchParams({"lastLogin": new Date().toLocaleDateString()});
 
   // Define what happens on successful data submission
