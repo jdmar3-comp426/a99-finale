@@ -3,7 +3,7 @@
 
 ## Description
 
-Carolina Clicker is an "incremental" game where you collect fever points by clicking a picture of Rameses. As you progress through the game, you can buy upgrades that increase your clicking ability. High scores are kept for every player.
+Carolina Clicker is an "incremental" game where you collect fever points by clicking a picture of Rameses. Our inspiration for our game was the popular cookie clicker game. As you progress through the game, you can buy upgrades that increase your clicking ability. High scores are saved for every player.
 
 ## Installation Requirements/Instructions
 
@@ -23,10 +23,16 @@ The Chrome web browser and Node.js Javascript Runtime must be installed to run o
 
 ## Run Instructions
 
-Open the project directory in a terminal and use the command "npm run start".
+- clone the repository and open the project directory in a terminal
+- run the command “npm i” to install necessary dependencies
+- Mac
+    - run "npm run start" to start up the application!
+- Windows
+    - run “npm run server”
+    - open the project directory in another terminal and run “npm run client”
 
-## Detailed [Documentation](./docs) sections
+## Detailed [Documentation](./docs) Sections
 
-[Development Details](./docs/DEV_DETAILS.md)
-[Implementation Details](./docs/IMPL_DETAILS.md)
-[API Endpoints](./docs/API_ENDPOINTS.md)
+- [Development Details](./docs/DEV_DETAILS.md)
+- [Implementation Details](./docs/IMPL_DETAILS.md)
+- [API Endpoints](./docs/API_ENDPOINTS.md)
