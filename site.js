@@ -39,9 +39,9 @@ const loginUser = form => {
     let response = JSON.parse(e.target.responseText);
     if (Object.keys(response).length > 1) {
       updateLastLogin(FD.get("user"));
-      alert("LOGIN SUCCESSFUL FOR USER " + FD.get("user"));
+      alert("Login successful for user: " + FD.get("user"));
       localStorage.setItem("user", FD.get("user"));
-      window.location.href = "/game.html";
+      window.location.href = "/game";
     } else {
       alert("Login unsuccessful");
     }
@@ -66,7 +66,11 @@ const newUser = form => {
   const FD = new URLSearchParams(new FormData(form));
 
   // Define what happens on successful data submission
-  XHR.addEventListener("load", e => console.log(e.target.responseText));
+  XHR.addEventListener("load", e => {
+    alert("New user created with username: " + FD.get("user"));
+    localStorage.setItem("user", FD.get("user"));
+    window.location.href = "/game";
+  })
 
   // Define what happens in case of error
   XHR.addEventListener("error", e => console.log("Something went wrong."));
