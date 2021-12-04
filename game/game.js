@@ -19,8 +19,10 @@ var user = localStorage.getItem("user");
 // Initialize the game variables 
 var email, score, level, upgradeCost, clickerCost, autoClickerLevel, deanDome, deanDomeCost, intervalId;
 
+// Create a new XHR to get all of the user information from api
 const initialXHR = new XMLHttpRequest();
 initialXHR.addEventListener("load", e => {
+  // Load json response and set all of the user data
   let response = JSON.parse(e.target.responseText);
   email = response.email;
   score = response.score;
@@ -51,7 +53,9 @@ function setInitialDisplays() {
   ramesesLevel.innerHTML = "Rameses Level: " + level;
   autoClickerLevelDoc.innerHTML = "Autoclicker Level: " + autoClickerLevel;
   unlockDDDoc.innerHTML = deanDome ? "Mystery Unlocked: Yes!" : "Mystery Unlocked: No";
+  // Call to set up autosave interval
   autoSaveSetup();
+  // Set up autoclicker if it's already been unlocked
   intervalId = 1;
   if (autoClickerLevel > 0) {
     setInterval(function() {
@@ -113,15 +117,17 @@ deanDomeDoc.onclick = function() {
 }
 
 // Update Score and Upgrade Cost Display
-function updateScore() { scoreDoc.innerHTML = "Fever Points: " + score;}
-function updateCost() { upgradeCostDoc.innerHTML = "Upgrade Cost: " + upgradeCost;}
-function updateClickerCost() {clickerCostDoc.innerHTML = "Auto Clicker Cost: " + clickerCost}
+function updateScore() { scoreDoc.innerHTML = "Fever Points: " + score};
+function updateCost() { upgradeCostDoc.innerHTML = "Upgrade Cost: " + upgradeCost};
+function updateClickerCost() {clickerCostDoc.innerHTML = "Auto Clicker Cost: " + clickerCost};
 
+// Set up autosave interval
 function autoSaveSetup() {
   setInterval(function() {
+    // Create a new XHR
     const XHR = new XMLHttpRequest();
 
-    // Bind the FormData object and the form element
+    // Make the new saved values equal to current user values
     const FD = new URLSearchParams({
       "score": score,
       "level": level,
@@ -132,10 +138,10 @@ function autoSaveSetup() {
       "deanDomeCost": deanDomeCost
     });
 
-    // Define what happens on successful data submission
+    // Console.log successful submission on load
     XHR.addEventListener("load", e => console.log(e.target.responseText));
 
-    // Define what happens in case of error
+    // Console.log error if something weird occurs
     XHR.addEventListener("error", e => console.log("Something went wrong."));
 
     // Set up our request
