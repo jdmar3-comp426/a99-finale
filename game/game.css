@@ -28,3 +28,8 @@ button{
   margin-left: 20%;
   padding-right: 30%;
 }
+
+a {
+  color: white;
+  text-decoration: none;
+}
