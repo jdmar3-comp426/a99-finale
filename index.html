@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Carolina Clicker Login</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id=loginPanel class=panel>
+      <div>
+        <h3>Login</h3>
+      </div>
+      <form id="login">
+        <label for="user">Username: </label>
+        <input name="user" required>
+        <label for="pass"><br>Password: </label>
+        <input name="pass" type="password" required><br>
+        <input type="submit" value="Login">
+      </form>
+      <button onclick="showCreate()">Create new user</button>
+      <button onclick="showDelete()">Delete account</button>
+    </div>
+    <div id=createPanel class=panel>
+      <div>
+        <h3>Create a new account</h3>
+      </div>
+      <form id="createUser">
+        <label for="user">Username: </label>
+        <input name="user" required>
+        <label for="email"><br>Email: </label>
+        <input name="email" required>
+        <label for="pass"><br>Password: </label>
+        <input name="pass" type="password" required><br>
+        <input type="submit" value="Add User">
+      </form>
+    </div>
+    <div id=deletePanel class=panel>
+      <div>
+        <h3>Delete an account</h3>
+      </div>
+      <form id="deleteUser">
+        <label for="user">Username: </label>
+        <input name="user" required><br>
+        <input type="submit" value="Delete User">
+      </form>
+    </div>
+    <script src="site.js"></script>
+  </body>
+</html>
